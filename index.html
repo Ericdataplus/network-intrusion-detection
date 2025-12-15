@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AI-powered network intrusion detection using UNSW-NB15 dataset. XGBoost classification with 90% accuracy detecting 9 attack types.">
+    <title>Network Intrusion Detection | AI Cybersecurity Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-yellow: #d29922;
+            --accent-purple: #a371f7;
+            --accent-orange: #db6d28;
+            --accent-cyan: #39c5cf;
+            --border-color: #30363d;
+            --gradient-cyber: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-danger: linear-gradient(135deg, #f85149 0%, #db6d28 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg, #1a1f35 0%, var(--bg-primary) 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(88, 166, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(163, 113, 247, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #58a6ff 0%, #a371f7 50%, #f85149 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .hero-stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 32px;
+            min-width: 160px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(88, 166, 255, 0.2);
+        }
+
+        .hero-stat .value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-stat.green .value {
+            color: var(--accent-green);
+        }
+
+        .hero-stat.blue .value {
+            color: var(--accent-blue);
+        }
+
+        .hero-stat.purple .value {
+            color: var(--accent-purple);
+        }
+
+        .hero-stat.orange .value {
+            color: var(--accent-orange);
+        }
+
+        .hero-stat.cyan .value {
+            color: var(--accent-cyan);
+        }
+
+        /* Click Hint */
+        .click-hint {
+            text-align: center;
+            padding: 14px;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .click-hint span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ML Algorithms Banner */
+        .algorithms-banner {
+            background: var(--bg-secondary);
+            padding: 30px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .algorithms-banner h3 {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .algorithms-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .algorithm-tag {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .algorithm-tag:hover {
+            border-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .algorithm-tag .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Attack Types Section */
+        .attack-types {
+            background: var(--bg-primary);
+            padding: 50px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .attack-types h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--accent-red);
+        }
+
+        .attack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .attack-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attack-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .attack-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
+        }
+
+        .attack-card .name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .attack-card .count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .attack-card .percent {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section */
+        .section {
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Visualization Grid */
+        .viz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .viz-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .viz-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .viz-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .viz-item img:hover {
+            transform: scale(1.02);
+        }
+
+        .viz-item .caption {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .viz-item .caption h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .viz-item .caption p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .viz-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Performance Cards */
+        .performance-section {
+            background: var(--bg-secondary);
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .perf-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .perf-card h4 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .perf-card .score {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .perf-card .score.green {
+            color: var(--accent-green);
+        }
+
+        .perf-card .score.blue {
+            color: var(--accent-blue);
+        }
+
+        .perf-card .score.purple {
+            color: var(--accent-purple);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 8px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        .footer-credit {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Gallery */
+        .mobile-gallery {
+            display: none;
+            padding: 30px 15px;
+        }
+
+        .mobile-gallery h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-blue);
+        }
+
+        .mobile-gallery img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Desktop visibility */
+        .desktop-viz {
+            display: block;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                gap: 15px;
+            }
+
+            .hero-stat {
+                padding: 16px 20px;
+                min-width: 140px;
+            }
+
+            .hero-stat .value {
+                font-size: 1.8rem;
+            }
+
+            .viz-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .desktop-viz {
+                display: none;
+            }
+
+            .mobile-gallery {
+                display: block;
+            }
+
+            .attack-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .algorithms-list {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🛡️</div>
+            <h1>Network Intrusion Detection</h1>
+            <p class="subtitle">AI-Powered Cybersecurity using UNSW-NB15 Benchmark Dataset</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat green">
+                    <span class="value">90.0%</span>
+                    <span class="label">Binary Accuracy</span>
+                </div>
+                <div class="hero-stat blue">
+                    <span class="value">76.4%</span>
+                    <span class="label">Multi-Class Accuracy</span>
+                </div>
+                <div class="hero-stat purple">
+                    <span class="value">98.5%</span>
+                    <span class="label">ROC-AUC Score</span>
+                </div>
+                <div class="hero-stat orange">
+                    <span class="value">9</span>
+                    <span class="label">Attack Types</span>
+                </div>
+                <div class="hero-stat cyan">
+                    <span class="value">257K</span>
+                    <span class="label">Records</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Click Hint -->
+    <div class="click-hint">
+        <span>💡 Click any graph to expand • Click again or press ESC to close</span>
+    </div>
+
+    <!-- ML Algorithms Banner -->
+    <section class="algorithms-banner">
+        <h3>Machine Learning Algorithms Used</h3>
+        <div class="algorithms-list">
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-green);"></span>
+                XGBoost Classifier
+            </div>
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-blue);"></span>
+                Random Forest
+            </div>
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-purple);"></span>
+                LightGBM
+            </div>
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-orange);"></span>
+                Feature Importance Analysis
+            </div>
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-cyan);"></span>
+                Multi-Class Classification
+            </div>
+            <div class="algorithm-tag">
+                <span class="dot" style="background: var(--accent-red);"></span>
+                Anomaly Detection
+            </div>
+        </div>
+    </section>
+
+    <!-- Attack Types Section -->
+    <section class="attack-types">
+        <h2>🎯 9 Attack Types Detected</h2>
+        <div class="attack-grid">
+            <div class="attack-card">
+                <div class="name">Generic</div>
+                <div class="count">40,000</div>
+                <div class="percent">15.5% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Exploits</div>
+                <div class="count">44,525</div>
+                <div class="percent">17.3% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Fuzzers</div>
+                <div class="count">24,246</div>
+                <div class="percent">9.4% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">DoS</div>
+                <div class="count">16,353</div>
+                <div class="percent">6.3% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Reconnaissance</div>
+                <div class="count">13,987</div>
+                <div class="percent">5.4% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Analysis</div>
+                <div class="count">2,677</div>
+                <div class="percent">1.0% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Backdoor</div>
+                <div class="count">2,329</div>
+                <div class="percent">0.9% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Shellcode</div>
+                <div class="count">1,511</div>
+                <div class="percent">0.6% of traffic</div>
+            </div>
+            <div class="attack-card">
+                <div class="name">Worms</div>
+                <div class="count">174</div>
+                <div class="percent">0.07% of traffic</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Visualizations -->
+    <section class="section desktop-viz">
+        <div class="section-title">
+            <h2>📊 Dataset Overview</h2>
+            <p>UNSW-NB15: Industry-standard network intrusion benchmark dataset</p>
+        </div>
+        <div class="viz-grid">
+            <div class="viz-item">
+                <img src="graphs/01_dataset_overview.png" alt="Dataset Overview">
+                <div class="caption">
+                    <h4>Dataset Statistics</h4>
+                    <p>257,673 network connection records with 43 features</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/02_attack_distribution.png" alt="Attack Distribution">
+                <div class="caption">
+                    <h4>Attack Type Distribution</h4>
+                    <p>Balance of 10 categories: Normal traffic + 9 attack types</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section desktop-viz">
+        <div class="section-title">
+            <h2>🤖 Machine Learning Results</h2>
+            <p>XGBoost achieves 90% accuracy in binary classification</p>
+        </div>
+        <div class="viz-grid">
+            <div class="viz-item">
+                <img src="graphs/03_binary_classification.png" alt="Binary Classification Results">
+                <div class="caption">
+                    <h4>Binary Classification Performance</h4>
+                    <p>Normal vs Attack detection with 98.5% ROC-AUC</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/04_multiclass_confusion.png" alt="Multi-Class Confusion Matrix">
+                <div class="caption">
+                    <h4>Multi-Class Confusion Matrix</h4>
+                    <p>Detailed classification across all 10 traffic types</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/05_feature_importance.png" alt="Feature Importance">
+                <div class="caption">
+                    <h4>Top 20 Network Features</h4>
+                    <p>Key indicators for intrusion detection</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/06_model_comparison.png" alt="Model Comparison">
+                <div class="caption">
+                    <h4>Model Comparison</h4>
+                    <p>XGBoost vs Random Forest vs LightGBM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section desktop-viz">
+        <div class="section-title">
+            <h2>🔍 Per-Attack Analysis</h2>
+            <p>Detection performance varies by attack type</p>
+        </div>
+        <div class="viz-grid">
+            <div class="viz-item">
+                <img src="graphs/07_per_attack_performance.png" alt="Per-Attack Performance">
+                <div class="caption">
+                    <h4>Per-Attack Detection Metrics</h4>
+                    <p>Precision, Recall, and F1-Score for each attack type</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/08_network_analysis.png" alt="Network Protocol Analysis">
+                <div class="caption">
+                    <h4>Network Protocol Analysis</h4>
+                    <p>Distribution of protocols and services in traffic</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section desktop-viz">
+        <div class="section-title">
+            <h2>📈 Traffic Analysis</h2>
+            <p>Network behavior patterns across attack types</p>
+        </div>
+        <div class="viz-grid">
+            <div class="viz-item">
+                <img src="graphs/09_traffic_volume.png" alt="Traffic Volume Analysis">
+                <div class="caption">
+                    <h4>Traffic Volume by Attack Type</h4>
+                    <p>Bytes transferred and connection duration patterns</p>
+                </div>
+            </div>
+            <div class="viz-item full-width">
+                <img src="graphs/10_summary_dashboard.png" alt="Summary Dashboard">
+                <div class="caption">
+                    <h4>Complete Analysis Dashboard</h4>
+                    <p>Summary of all key findings and model performance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section class="section performance-section">
+        <div class="section-title">
+            <h2>🏆 Best Model Performance</h2>
+            <p>XGBoost Classifier - Winner across both classification tasks</p>
+        </div>
+        <div class="performance-grid">
+            <div class="perf-card">
+                <h4>Binary Accuracy</h4>
+                <div class="score green">90.04%</div>
+            </div>
+            <div class="perf-card">
+                <h4>Multi-Class Accuracy</h4>
+                <div class="score blue">76.35%</div>
+            </div>
+            <div class="perf-card">
+                <h4>Precision</h4>
+                <div class="score purple">89.79%</div>
+            </div>
+            <div class="perf-card">
+                <h4>Recall</h4>
+                <div class="score green">92.10%</div>
+            </div>
+            <div class="perf-card">
+                <h4>F1 Score</h4>
+                <div class="score blue">90.93%</div>
+            </div>
+            <div class="perf-card">
+                <h4>ROC-AUC</h4>
+                <div class="score purple">98.54%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile Gallery -->
+    <section class="mobile-gallery">
+        <h2>📊 Overview</h2>
+        <img src="graphs_mobile/01_stats_overview.png" alt="Key Stats Overview">
+        <img src="graphs_mobile/02_attack_distribution.png" alt="Attack Distribution">
+        <img src="graphs_mobile/09_dataset_breakdown.png" alt="Dataset Breakdown">
+
+        <h2>🤖 ML Results</h2>
+        <img src="graphs_mobile/03_binary_winner.png" alt="Binary Classification Winner">
+        <img src="graphs_mobile/04_multiclass_results.png" alt="Multi-Class Results">
+        <img src="graphs_mobile/08_roc_auc_score.png" alt="ROC-AUC Score">
+        <img src="graphs_mobile/05_top_features.png" alt="Top Features">
+
+        <h2>🔍 Detection Analysis</h2>
+        <img src="graphs_mobile/06_per_attack_detection.png" alt="Per-Attack Detection">
+        <img src="graphs_mobile/07_network_protocols.png" alt="Network Protocols">
+
+        <h2>📈 Impact & Summary</h2>
+        <img src="graphs_mobile/11_business_impact.png" alt="Business Impact">
+        <img src="graphs_mobile/10_key_takeaways.png" alt="Key Takeaways">
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Network Intrusion Detection</h3>
+        <div class="footer-links">
+            <a href="https://www.kaggle.com/datasets/mrwellsdavid/unsw-nb15" target="_blank">📊 Kaggle Dataset</a>
+            <a href="https://github.com/Ericdataplus" target="_blank">💻 GitHub Profile</a>
+            <a href="https://github.com/Ericdataplus/network-intrusion-detection" target="_blank">📁 Project Repo</a>
+        </div>
+        <p class="footer-credit">
+            Built with Python, XGBoost, Scikit-Learn & Matplotlib<br>
+            Made with 🔐 by <a href="https://github.com/Ericdataplus"
+                style="color: var(--accent-blue);">Ericdataplus</a> | December 2024
+        </p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img src="" alt="Expanded view" id="lightbox-img">
+    </div>
+
+    <script>
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.viz-item img, .mobile-gallery img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+
+</html>
