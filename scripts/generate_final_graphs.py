@@ -36,17 +36,17 @@ ax.text(0.5, 0.88, 'State-of-the-Art Network Intrusion Detection', fontsize=16,
         ha='center', color=COLORS['accent'], transform=ax.transAxes)
 
 # Main result
-ax.text(0.5, 0.70, '98.07%', fontsize=96, fontweight='bold',
+ax.text(0.5, 0.70, '98.57%', fontsize=96, fontweight='bold',
         ha='center', color=COLORS['green'], transform=ax.transAxes)
 ax.text(0.5, 0.55, 'ACCURACY', fontsize=20, ha='center',
         color=COLORS['text'], transform=ax.transAxes)
-ax.text(0.5, 0.48, 'NF-UNSW-NB15 Dataset | XGBoost + Class Balancing', fontsize=14,
+ax.text(0.5, 0.48, 'NF-UNSW-NB15 | Weighted Ensemble + Threshold Optimization', fontsize=14,
         ha='center', color=COLORS['accent'], transform=ax.transAxes)
 
 # Additional metrics
 metrics = [
-    ('99.76%', 'ROC-AUC', COLORS['cyan']),
-    ('81.42%', 'F1-Score', COLORS['purple']),
+    ('99.75%', 'ROC-AUC', COLORS['cyan']),
+    ('84.93%', 'F1-Score', COLORS['purple']),
     ('5', 'Datasets', COLORS['yellow']),
     ('87M+', 'Records', COLORS['orange']),
 ]
@@ -59,9 +59,9 @@ for i, (value, label, color) in enumerate(metrics):
             color=COLORS['text'], transform=ax.transAxes)
 
 # Comparison with papers
-ax.text(0.5, 0.12, 'Approaching Paper SOTA (99.8%) - Only 1.73% Gap!', fontsize=14,
+ax.text(0.5, 0.12, 'Approaching Paper SOTA (99.8%) - Only 1.23% Gap!', fontsize=14,
         ha='center', color=COLORS['yellow'], transform=ax.transAxes)
-ax.text(0.5, 0.06, 'Innovations: Chi-Square FS | SMOTE | Focal Loss | Attention | Residual Connections', fontsize=11,
+ax.text(0.5, 0.06, 'Innovations: Threshold Optimization | Weighted Ensemble | XGBoost + LightGBM + RF', fontsize=11,
         ha='center', color=COLORS['text'], alpha=0.7, transform=ax.transAxes)
 
 save_fig(fig, '30_ultimate_results')
@@ -80,13 +80,13 @@ ax.text(0.5, 0.88, 'All Models Across All Datasets', fontsize=14,
         ha='center', color=COLORS['text'], alpha=0.8, transform=ax.transAxes)
 
 leaderboard = [
-    ('1', 'XGBoost (NF-UNSW)', '98.07%', '99.76%', 'NF-UNSW-NB15', COLORS['green']),
-    ('2', 'Novel Attention-Residual', '97.84%', '99.67%', 'NF-UNSW-NB15', COLORS['cyan']),
-    ('3', 'Random Forest (NF-UNSW)', '97.96%', '99.74%', 'NF-UNSW-NB15', COLORS['purple']),
-    ('4', 'XGBoost (Chi-Square)', '94.25%', '99.05%', 'UNSW-NB15', COLORS['yellow']),
-    ('5', 'Random Forest (SMOTE)', '93.64%', '98.97%', 'UNSW-NB15', COLORS['orange']),
-    ('6', 'Deep FFN', '93.63%', '98.92%', 'UNSW-NB15', COLORS['accent']),
-    ('7', '1D-CNN', '93.51%', '98.76%', 'UNSW-NB15', COLORS['text']),
+    ('1', 'Weighted Ensemble', '98.57%', '99.75%', 'NF-UNSW-NB15', COLORS['green']),
+    ('2', 'XGBoost (Aggressive)', '98.47%', '99.75%', 'NF-UNSW-NB15', COLORS['cyan']),
+    ('3', 'Random Forest', '98.18%', '99.72%', 'NF-UNSW-NB15', COLORS['purple']),
+    ('4', 'LightGBM', '98.10%', '99.76%', 'NF-UNSW-NB15', COLORS['yellow']),
+    ('5', 'Novel Attention-Res', '97.84%', '99.67%', 'NF-UNSW-NB15', COLORS['orange']),
+    ('6', 'XGBoost (Chi-Square)', '94.25%', '99.05%', 'UNSW-NB15', COLORS['accent']),
+    ('7', 'Deep FFN', '93.63%', '98.92%', 'UNSW-NB15', COLORS['text']),
 ]
 
 # Header
@@ -139,7 +139,7 @@ for i, (name, desc, color) in enumerate(innovations):
     ax.text(0.12, y, name, fontsize=12, fontweight='bold', color=color, transform=ax.transAxes)
     ax.text(0.42, y, desc, fontsize=10, color=COLORS['text'], alpha=0.8, transform=ax.transAxes)
 
-ax.text(0.5, 0.08, 'Result: 98.07% accuracy, approaching paper SOTA of 99.8%',
+ax.text(0.5, 0.08, 'Result: 98.57% accuracy, approaching paper SOTA of 99.8%',
         fontsize=14, fontweight='bold', ha='center', color=COLORS['green'], transform=ax.transAxes)
 
 save_fig(fig, '32_innovations_summary')

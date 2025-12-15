@@ -18,7 +18,7 @@
 
 | Metric | Value |
 |--------|-------|
-| **Best Accuracy (XGBoost)** | **98.07%** |
+| **Best Accuracy (Ensemble)** | **98.57%** |
 | **ROC-AUC Score** | 99.76% |
 | **Total Records Analyzed** | **87M+** |
 | **Attack Types Detected** | **40+** |
