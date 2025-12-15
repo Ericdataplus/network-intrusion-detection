@@ -18,13 +18,13 @@
 
 | Metric | Value |
 |--------|-------|
-| **Best Accuracy (XGBoost)** | **94.25%** |
-| **ROC-AUC Score** | 99.05% |
+| **Best Accuracy (XGBoost)** | **98.07%** |
+| **ROC-AUC Score** | 99.76% |
 | **Total Records Analyzed** | **87M+** |
 | **Attack Types Detected** | **40+** |
-| **Datasets Combined** | **4** |
-| **ML Models Trained** | 10+ |
-| **Desktop Graphs** | 29 |
+| **Datasets Combined** | **5** |
+| **ML Models Trained** | 12+ |
+| **Desktop Graphs** | 32 |
 | **Mobile Graphs** | 15 |
 
 ---
