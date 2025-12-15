@@ -1,12 +1,16 @@
 # Network Intrusion Detection - Multi-Source AI Analysis
 
-> 📊 **Comprehensive Analysis of 4 Benchmark Datasets (87M+ Records):**
+> 📊 **State-of-the-Art Analysis of 9 Benchmark Datasets (100M+ Records):**
+> - [NF-UNSW-NB15-V2](https://www.kaggle.com/datasets/dhoogla/nfunswnb15v2) - 2M records, 43 NetFlow features ⭐ **99.73% accuracy**
+> - [NF-BoT-IoT-V2](https://www.kaggle.com/datasets/dhoogla/nfbotiotv2) - 30M records, 43 features, IoT Botnet attacks
+> - [NF-ToN-IoT-V2](https://www.kaggle.com/datasets/dhoogla/nftoniotv2) - 13M records, 43 features, IoT Telemetry
+> - [NF-CSE-CIC-IDS2018-V2](https://www.kaggle.com/datasets/dhoogla/nfcsecicids2018v2) - 17M records, 43 features
+> - [CICIDS2017](https://www.kaggle.com/datasets/dhoogla/cicids2017) - Attack-specific parquet files
 > - [UNSW-NB15](https://www.kaggle.com/datasets/mrwellsdavid/unsw-nb15) - 257K records, 43 features
-> - [CICIDS2017](https://www.kaggle.com/datasets/chethuhn/network-intrusion-dataset) - 2.8M+ records, 80+ features  
-> - [NSL-KDD](https://www.kaggle.com/datasets/sampadab17/network-intrusion-detection) - 48K records, 41 features
-> - [CIC IoT 2023](https://www.kaggle.com/datasets/madhavmalhotra/unb-cic-iot-dataset) - 84.5M records, 47 features, 33 attack types
+> - [NSL-KDD](https://www.kaggle.com/datasets/hassan06/nslkdd) - 148K records, 41 features
+> - [CIC IoT 2023](https://www.kaggle.com/datasets/madhavmalhotra/unb-cic-iot-dataset) - 84.5M records, 47 features
 >
-> State-of-the-art deep learning for network intrusion detection.
+> **Approaching SOTA: 99.73% accuracy, only 0.07% from paper benchmark!**
 
 🔗 **[View Live Dashboard](https://ericdataplus.github.io/network-intrusion-detection/)**
 
@@ -18,27 +22,38 @@
 
 | Metric | Value |
 |--------|-------|
-| **Best Accuracy (Ensemble)** | **98.57%** |
-| **ROC-AUC Score** | 99.76% |
-| **Total Records Analyzed** | **87M+** |
+| **Best Accuracy (RL Ensemble)** | **99.73%** |
+| **ROC-AUC Score** | 99.97% |
+| **F1-Score** | 96.51% |
+| **Total Records Analyzed** | **100M+** |
 | **Attack Types Detected** | **40+** |
-| **Datasets Combined** | **5** |
-| **ML Models Trained** | 12+ |
+| **Datasets Combined** | **9** |
+| **ML Models Trained** | 15+ |
 | **Desktop Graphs** | 32 |
 | **Mobile Graphs** | 15 |
+| **Gap to SOTA (99.8%)** | **0.07%** |
 
 ---
 
 ## 📊 Datasets Used
 
-This project combines **four industry-standard benchmark datasets** for the most comprehensive network intrusion detection study:
+This project combines **nine industry-standard benchmark datasets** for the most comprehensive network intrusion detection study:
 
-| Dataset | Records | Features | Year | Key Attacks |
-|---------|---------|----------|------|-------------|
-| **CIC IoT 2023** | **84.5M** | 47 | 2023 | 33 attack types: DDoS, Mirai, Backdoor, SQL Injection, etc. |
-| **UNSW-NB15** | 257,673 | 43 | 2015 | Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance |
-| **CICIDS2017** | 2.8M+ | 80+ | 2017 | DoS, DDoS, Brute Force, Web Attacks, Infiltration, Botnet |
-| **NSL-KDD** | 47,736 | 41 | 2009 | DoS, Probe, R2L, U2R (Classic benchmark) |
+### NetFlow V2 Datasets (University of Queensland)
+| Dataset | Records | Features | Source |
+|---------|---------|----------|--------|
+| **NF-UNSW-NB15-V2** | 2.0M | 43 | [Kaggle](https://www.kaggle.com/datasets/dhoogla/nfunswnb15v2) |
+| **NF-BoT-IoT-V2** | 30.4M | 43 | [Kaggle](https://www.kaggle.com/datasets/dhoogla/nfbotiotv2) |
+| **NF-ToN-IoT-V2** | 13.1M | 43 | [Kaggle](https://www.kaggle.com/datasets/dhoogla/nftoniotv2) |
+| **NF-CSE-CIC-IDS2018-V2** | 17.1M | 43 | [Kaggle](https://www.kaggle.com/datasets/dhoogla/nfcsecicids2018v2) |
+| **CICIDS2017** | 2.5M | 80+ | [Kaggle](https://www.kaggle.com/datasets/dhoogla/cicids2017) |
+
+### Original Benchmark Datasets
+| Dataset | Records | Features | Key Attacks |
+|---------|---------|----------|-------------|
+| **CIC IoT 2023** | 84.5M | 47 | 33 attack types: DDoS, Mirai, Backdoor |
+| **UNSW-NB15** | 257K | 43 | Fuzzers, Backdoors, DoS, Exploits |
+| **NSL-KDD** | 148K | 41 | DoS, Probe, R2L, U2R |
 
 ### Why Multiple Datasets?
 
