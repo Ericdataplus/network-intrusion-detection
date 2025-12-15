@@ -1,15 +1,16 @@
 # Network Intrusion Detection - Multi-Source AI Analysis
 
-> 📊 **Comprehensive Analysis of 3 Benchmark Datasets:**
+> 📊 **Comprehensive Analysis of 4 Benchmark Datasets (87M+ Records):**
 > - [UNSW-NB15](https://www.kaggle.com/datasets/mrwellsdavid/unsw-nb15) - 257K records, 43 features
 > - [CICIDS2017](https://www.kaggle.com/datasets/chethuhn/network-intrusion-dataset) - 2.8M+ records, 80+ features  
 > - [NSL-KDD](https://www.kaggle.com/datasets/sampadab17/network-intrusion-detection) - 48K records, 41 features
+> - [CIC IoT 2023](https://www.kaggle.com/datasets/madhavmalhotra/unb-cic-iot-dataset) - 84.5M records, 47 features, 33 attack types
 >
-> AI-powered network intrusion detection using state-of-the-art machine learning techniques.
+> State-of-the-art deep learning for network intrusion detection.
 
 🔗 **[View Live Dashboard](https://ericdataplus.github.io/network-intrusion-detection/)**
 
-![Summary Dashboard](graphs/17_comprehensive_summary.png)
+![Summary Dashboard](graphs/26_final_comprehensive_dashboard.png)
 
 ---
 
@@ -17,25 +18,26 @@
 
 | Metric | Value |
 |--------|-------|
-| **Best Accuracy (1D-CNN)** | **93.69%** |
-| **ROC-AUC Score** | 98.78% |
-| **Total Records Analyzed** | 3M+ |
-| **Attack Types Detected** | 9 |
-| **Datasets Combined** | 3 |
-| **ML Models Trained** | 8 |
-| **Desktop Graphs** | 21 |
+| **Best Accuracy (Deep FFN)** | **93.63%** |
+| **ROC-AUC Score** | 98.92% |
+| **Total Records Analyzed** | **87M+** |
+| **Attack Types Detected** | **40+** |
+| **Datasets Combined** | **4** |
+| **ML Models Trained** | 8+ |
+| **Desktop Graphs** | 26 |
 | **Mobile Graphs** | 15 |
 
 ---
 
 ## 📊 Datasets Used
 
-This project combines **three industry-standard benchmark datasets** for comprehensive network intrusion detection:
+This project combines **four industry-standard benchmark datasets** for the most comprehensive network intrusion detection study:
 
 | Dataset | Records | Features | Year | Key Attacks |
 |---------|---------|----------|------|-------------|
-| **UNSW-NB15** | 257,673 | 43 | 2015 | Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance, Shellcode, Worms |
-| **CICIDS2017** | 2.8M+ | 80+ | 2017 | DoS, DDoS, Brute Force, Web Attacks, Infiltration, Botnet, PortScan |
+| **CIC IoT 2023** | **84.5M** | 47 | 2023 | 33 attack types: DDoS, Mirai, Backdoor, SQL Injection, etc. |
+| **UNSW-NB15** | 257,673 | 43 | 2015 | Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance |
+| **CICIDS2017** | 2.8M+ | 80+ | 2017 | DoS, DDoS, Brute Force, Web Attacks, Infiltration, Botnet |
 | **NSL-KDD** | 47,736 | 41 | 2009 | DoS, Probe, R2L, U2R (Classic benchmark) |
 
 ### Why Multiple Datasets?
