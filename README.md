@@ -17,12 +17,14 @@
 
 | Metric | Value |
 |--------|-------|
+| **Best Accuracy (1D-CNN)** | **93.69%** |
+| **ROC-AUC Score** | 98.78% |
 | **Total Records Analyzed** | 3M+ |
-| **Binary Accuracy** | 90.04% |
-| **ROC-AUC Score** | 98.59% |
 | **Attack Types Detected** | 9 |
 | **Datasets Combined** | 3 |
-| **ML Models Trained** | 6+ |
+| **ML Models Trained** | 8 |
+| **Desktop Graphs** | 21 |
+| **Mobile Graphs** | 15 |
 
 ---
 
@@ -47,14 +49,22 @@ This project combines **three industry-standard benchmark datasets** for compreh
 
 ## 🤖 Machine Learning Techniques
 
-### Supervised Learning (Classification)
+### Deep Learning (GPU-Accelerated)
+
+| Model | Accuracy | F1-Score | ROC-AUC | Type |
+|-------|----------|----------|---------|------|
+| **1D-CNN** 🥇 | **93.69%** | **95.02%** | **98.78%** | Deep Learning |
+| **DNN** 🥈 | 93.47% | 94.92% | 98.79% | Deep Learning |
+| Autoencoder | 69.12% | 69.27% | N/A | Unsupervised |
+
+### Traditional ML (Classification)
 
 | Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
 |-------|----------|-----------|--------|----------|---------|
-| **XGBoost** ⭐ | 90.04% | 89.79% | 92.10% | 90.93% | 98.59% |
+| **XGBoost** 🥉 | 90.04% | 89.79% | 92.10% | 90.93% | 98.59% |
 | Random Forest | 89.99% | 89.62% | 92.19% | 90.89% | 98.63% |
 | LightGBM | 89.93% | 89.59% | 92.10% | 90.83% | 98.56% |
-| Ensemble Stacking | 89.95% | - | - | - | 98.5%+ |
+| Ensemble Stacking | ~90% | - | - | - | 98.5%+ |
 
 ### Unsupervised Learning (Anomaly Detection)
 
@@ -125,8 +135,8 @@ network-intrusion-detection/
 │   ├── cicids2017/            # CICIDS2017 (8 CSV files, 800MB+)
 │   └── nsl_kdd/               # NSL-KDD (train/test)
 │
-├── graphs/                     # Desktop visualizations (17 graphs)
-├── graphs_mobile/              # Mobile-optimized graphs (11 graphs)
+├── graphs/                     # Desktop visualizations (21 graphs)
+├── graphs_mobile/              # Mobile-optimized graphs (15 graphs)
 │
 ├── models/                     # Trained ML models
 │   ├── xgb_optimized.joblib
@@ -213,12 +223,13 @@ This project implements techniques from cutting-edge research (2023-2024):
 
 ## 🚀 Key Findings
 
-1. **Multi-source analysis improves robustness** - Training on multiple datasets reduces overfitting
-2. **XGBoost dominates** - Achieves best accuracy (90.04%) and ROC-AUC (98.59%)
-3. **Network state features are critical** - TTL and connection state drive predictions
-4. **Class imbalance is real** - Rare attacks (Worms, Analysis) need special handling
-5. **Unsupervised methods validate** - Isolation Forest achieves ~80% without labels
-6. **Ensemble stacking adds robustness** - Combining models reduces variance
+1. **Deep Learning outperforms ML** - 1D-CNN (93.69%) beats XGBoost (90.04%) by 3.65%
+2. **GPU acceleration is essential** - PyTorch + CUDA enables efficient neural network training
+3. **Multi-source analysis improves robustness** - Training on 3 datasets reduces overfitting
+4. **Network state features are critical** - TTL and connection state drive predictions
+5. **Class imbalance is real** - Rare attacks (Worms, Analysis) need special handling
+6. **Unsupervised methods validate** - Isolation Forest achieves ~80% without labels
+7. **8 models compared** - Comprehensive evaluation from traditional ML to deep learning
 
 ---
 
