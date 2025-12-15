@@ -541,12 +541,12 @@
         <div class="hero-content">
             <div class="hero-icon">🛡️</div>
             <h1>Network Intrusion Detection</h1>
-            <p class="subtitle">Multi-Source AI Analysis | 3 Benchmark Datasets | State-of-the-Art ML</p>
+            <p class="subtitle">Multi-Source AI Analysis | 3 Datasets | Deep Learning + Traditional ML</p>
 
             <div class="hero-stats">
                 <div class="hero-stat green">
-                    <span class="value">90.0%</span>
-                    <span class="label">Binary Accuracy</span>
+                    <span class="value">93.7%</span>
+                    <span class="label">Best Accuracy (CNN)</span>
                 </div>
                 <div class="hero-stat blue">
                     <span class="value">98.6%</span>
@@ -561,8 +561,8 @@
                     <span class="label">Attack Types</span>
                 </div>
                 <div class="hero-stat cyan">
-                    <span class="value">3</span>
-                    <span class="label">Datasets</span>
+                    <span class="value">8</span>
+                    <span class="label">ML Models</span>
                 </div>
             </div>
         </div>
@@ -832,36 +832,74 @@
         </div>
     </section>
 
+    <!-- NEW: Deep Learning Section -->
+    <section class="section desktop-viz" style="background: var(--bg-secondary);">
+        <div class="section-title">
+            <h2>🧬 Deep Learning (GPU-Accelerated)</h2>
+            <p>Neural Networks trained on NVIDIA RTX 3060 - outperforming traditional ML</p>
+        </div>
+        <div class="viz-grid">
+            <div class="viz-item">
+                <img src="graphs/18_dl_vs_ml_comparison.png" alt="Deep Learning vs ML">
+                <div class="caption">
+                    <h4>DL vs ML Comparison</h4>
+                    <p>1D-CNN (93.69%) beats XGBoost (90.04%) by 3.65%</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/19_deep_learning_results.png" alt="Deep Learning Results">
+                <div class="caption">
+                    <h4>Neural Network Results</h4>
+                    <p>CNN, DNN, and Autoencoder performance</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/20_model_leaderboard.png" alt="Model Leaderboard">
+                <div class="caption">
+                    <h4>Complete Model Leaderboard</h4>
+                    <p>8 models ranked by accuracy</p>
+                </div>
+            </div>
+            <div class="viz-item">
+                <img src="graphs/21_neural_architectures.png" alt="Neural Architectures">
+                <div class="caption">
+                    <h4>Architecture Details</h4>
+                    <p>1D-CNN, DNN, and Autoencoder layer designs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Performance Section -->
     <section class="section performance-section">
         <div class="section-title">
-            <h2>🏆 Best Model Performance</h2>
-            <p>XGBoost Classifier - Winner across both classification tasks</p>
+            <h2>🏆 Best Model: 1D-CNN (93.69%)</h2>
+            <p>Deep Learning outperforms traditional ML by 3.65%</p>
         </div>
         <div class="performance-grid">
             <div class="perf-card">
-                <h4>Binary Accuracy</h4>
-                <div class="score green">90.04%</div>
+                <h4>1D-CNN Accuracy</h4>
+                <div class="score green">93.69%</div>
             </div>
             <div class="perf-card">
-                <h4>Multi-Class Accuracy</h4>
-                <div class="score blue">76.35%</div>
+                <h4>DNN Accuracy</h4>
+                <div class="score blue">93.47%</div>
             </div>
             <div class="perf-card">
-                <h4>Precision</h4>
-                <div class="score purple">89.79%</div>
+                <h4>XGBoost Accuracy</h4>
+                <div class="score purple">90.04%</div>
             </div>
             <div class="perf-card">
-                <h4>Recall</h4>
-                <div class="score green">92.10%</div>
+                <h4>F1 Score (1D-CNN)</h4>
+                <div class="score green">95.02%</div>
             </div>
             <div class="perf-card">
-                <h4>F1 Score</h4>
-                <div class="score blue">90.93%</div>
+                <h4>Models Trained</h4>
+                <div class="score blue">8+</div>
             </div>
             <div class="perf-card">
                 <h4>ROC-AUC</h4>
-                <div class="score purple">98.54%</div>
+                <div class="score purple">98.78%</div>
             </div>
         </div>
     </section>
