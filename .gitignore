@@ -3,6 +3,9 @@
 !features_description.csv
 !attack_categories.csv
 
+# Large data folders (can be re-downloaded)
+data/
+
 # Python
 __pycache__/
 *.py[cod]
