@@ -22,16 +22,16 @@
 
 | Metric | Value |
 |--------|-------|
-| **Best Accuracy (RL Ensemble)** | **99.73%** |
+| **Best Accuracy (RL Ensemble)** | **99.74%** |
 | **ROC-AUC Score** | 99.97% |
-| **F1-Score** | 96.51% |
+| **F1-Score** | 96.59% |
 | **Total Records Analyzed** | **100M+** |
 | **Attack Types Detected** | **40+** |
 | **Datasets Combined** | **9** |
 | **ML Models Trained** | 15+ |
 | **Desktop Graphs** | 32 |
 | **Mobile Graphs** | 15 |
-| **Gap to SOTA (99.8%)** | **0.07%** |
+| **Gap to SOTA (99.8%)** | **0.06%** |
 
 ---
 
